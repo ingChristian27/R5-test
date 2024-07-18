@@ -1,5 +1,5 @@
-import React from "react";
-import Book, { BookType } from "../Book";
+import { Book } from "../../elements";
+import { Book as BookType } from "../../../models";
 import "./books.css";
 
 export interface BooksProps {

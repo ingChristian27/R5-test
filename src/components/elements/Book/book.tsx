@@ -10,6 +10,7 @@ export type BookType = {
     };
   };
 };
+
 export interface BookProps {
   book: BookType;
 }

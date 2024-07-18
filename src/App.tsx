@@ -1,22 +1,24 @@
 import React from "react";
-import SearchInput from "./components/SearchInput";
-import { BookType } from "./components/Book";
-import Books from "./components/Books";
-import { Box } from "@mui/material";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import GoogleBooks from "./components/pages/googleBooks/googleBooks";
+import Bookstore from "./components/pages/bookstore/bookstore";
 
-interface Response {
-  data?: {
-    items: BookType[];
-  };
-}
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <GoogleBooks />,
+  },
+  {
+    path: "/bookstore",
+    element: <Bookstore />,
+  },
+]);
 
 const App = () => {
-  const [response, setResponse] = React.useState<Response>({});
   return (
-    <Box>
-      <SearchInput setResponse={setResponse} />
-      {response.data && <Books books={response.data.items} />}
-    </Box>
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
   );
 };
 

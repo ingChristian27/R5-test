@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useState } from "react";
 import axios from "axios";
 import "./SearchInput.css";
 
@@ -7,7 +7,7 @@ interface SearchInputProps {
 }
 
 const SearchInput = ({ setResponse }: SearchInputProps) => {
-  const [searchValue, setSearchValue] = React.useState("");
+  const [searchValue, setSearchValue] = useState("");
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
     setSearchValue(event.target.value);
