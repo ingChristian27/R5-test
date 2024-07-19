@@ -1,6 +1,6 @@
-import "./books.css";
 import { Book as BookType } from "models";
 import { Book } from "components/elements";
+import { Grid } from "@mui/material";
 
 export interface BooksProps {
   books: BookType[];
@@ -8,11 +8,13 @@ export interface BooksProps {
 
 const Books = ({ books }: BooksProps) => {
   return (
-    <div className="books">
+    <Grid container spacing={2}>
       {books.map((book) => (
-        <Book key={book.id} book={book} />
+        <Grid item xs={12} sm={6} md={4} lg={2.4} xl={2.4} key={book.id}>
+          <Book book={book} />
+        </Grid>
       ))}
-    </div>
+    </Grid>
   );
 };
 

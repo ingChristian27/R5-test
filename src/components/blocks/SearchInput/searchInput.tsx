@@ -1,45 +1,43 @@
-import "./SearchInput.css";
-import React, { ChangeEvent, useState } from "react";
-import { getGoogleBooksByTitle } from "services";
+import styles from "helpers/styles/styles";
+import InputBase from "@mui/material/InputBase";
+import { Box, Button } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+
+import { useFormik } from "formik";
 
 interface SearchInputProps {
-  setResponse: Function;
+  setInputSearch: (value: string) => void;
+  defaultValue: string;
 }
 
-const SearchInput = ({ setResponse }: SearchInputProps) => {
-  const [searchValue, setSearchValue] = useState("");
-
-  function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
-    setSearchValue(event.target.value);
-  }
-
-  const getBooks = async (title: string = "javascript") => {
-    try {
-      const books = await getGoogleBooksByTitle(title);
-      setResponse(books);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  React.useEffect(() => {
-    getBooks();
-  }, []);
+const SearchInput = ({ setInputSearch, defaultValue }: SearchInputProps) => {
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: { searchInput: defaultValue },
+    onSubmit: (values) => setInputSearch(values.searchInput),
+  });
 
   return (
-    <div className="search">
-      <h1>GOOGLE BOOKS</h1>
-      <input
-        className="search-input"
-        type="text"
+    <Box
+      component="form"
+      onSubmit={formik.handleSubmit}
+      sx={styles.containerFormSearch}
+    >
+      <InputBase
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        name="searchInput"
         placeholder="Buscar un libro"
-        value={searchValue}
-        onChange={handleInputChange}
+        sx={styles.inputFormSearch}
       />
-      <button className="search-button" onClick={() => getBooks(searchValue)}>
+      <Button
+        sx={styles.buttomFormSearch}
+        endIcon={<SearchIcon />}
+        type="submit"
+      >
         Buscar
-      </button>
-    </div>
+      </Button>
+    </Box>
   );
 };
 
