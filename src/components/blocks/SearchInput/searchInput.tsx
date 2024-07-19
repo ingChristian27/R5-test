@@ -1,6 +1,6 @@
-import React, { ChangeEvent, useState } from "react";
-import axios from "axios";
 import "./SearchInput.css";
+import React, { ChangeEvent, useState } from "react";
+import { getGoogleBooksByTitle } from "services";
 
 interface SearchInputProps {
   setResponse: Function;
@@ -13,11 +13,14 @@ const SearchInput = ({ setResponse }: SearchInputProps) => {
     setSearchValue(event.target.value);
   }
 
-  function getBooks(title: string = "javascript") {
-    axios
-      .get(`https://www.googleapis.com/books/v1/volumes?q=${title}`)
-      .then((response) => setResponse(response));
-  }
+  const getBooks = async (title: string = "javascript") => {
+    try {
+      const books = await getGoogleBooksByTitle(title);
+      setResponse(books);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   React.useEffect(() => {
     getBooks();

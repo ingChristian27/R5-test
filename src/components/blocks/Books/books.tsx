@@ -1,6 +1,6 @@
-import { Book } from "../../elements";
-import { Book as BookType } from "../../../models";
 import "./books.css";
+import { Book as BookType } from "models";
+import { Book } from "components/elements";
 
 export interface BooksProps {
   books: BookType[];
