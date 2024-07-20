@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 
 import BookDetail from "components/elements/bookDetail";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 type DialogDetailBookProps = {
   isOpen: boolean;
@@ -74,6 +75,7 @@ export const DialogDetailBook: FC<DialogDetailBookProps> = ({
           <Button onClick={() => closeModal()}>Cancelar</Button>
           <Button
             type="submit"
+            endIcon={<FavoriteIcon />}
             onClick={(e) => {
               e.preventDefault();
               formik.handleSubmit();

@@ -11,6 +11,7 @@ import { transformBookDataFromOpenLibrary } from "helpers/functions";
 
 import { Grid, Container, Typography, Box, Alert } from "@mui/material";
 import DialogDetailBook from "./DialogDetailBook";
+import { addFavorite } from "services/favorites";
 
 const DEFAULT_TITLE = "javascript";
 
@@ -28,8 +29,12 @@ const Bookstore = () => {
   };
 
   const handleClose = (comment: string) => {
-    console.log(comment);
-    setOpenDialog(false); // Puedes hacer algo con el comentario si es necesario
+    if (book && comment)
+      addFavorite({
+        comment,
+        book,
+      });
+    setOpenDialog(false);
   };
 
   const getBooks = async (title: string) => {
