@@ -10,14 +10,27 @@ import { getOpenlibraryByTitle } from "services";
 import { transformBookDataFromOpenLibrary } from "helpers/functions";
 
 import { Grid, Container, Typography, Box, Alert } from "@mui/material";
+import DialogDetailBook from "./DialogDetailBook";
 
 const DEFAULT_TITLE = "javascript";
 
 const Bookstore = () => {
   const [books, setBooks] = useState<BookType[]>([]);
+  const [book, setBook] = useState<BookType>();
   const [searchValue, setSearchValue] = useState<string>(DEFAULT_TITLE);
   const [showError, setShowError] = useState({ isError: false, message: "" });
   const [showSpinner, setShowSpinner] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleOpen = (bookDialog: BookType) => {
+    setOpenDialog(true);
+    setBook(bookDialog);
+  };
+
+  const handleClose = (comment: string) => {
+    console.log(comment);
+    setOpenDialog(false); // Puedes hacer algo con el comentario si es necesario
+  };
 
   const getBooks = async (title: string) => {
     try {
@@ -46,7 +59,11 @@ const Bookstore = () => {
   return (
     <Container fixed sx={styles.containerBase}>
       {showError.isError ?? <Alert severity="error">{showError.message}</Alert>}
-
+      <DialogDetailBook
+        isOpen={openDialog}
+        closeModal={handleClose}
+        book={book}
+      />
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <Typography variant="h5" component="h1">
@@ -63,7 +80,11 @@ const Bookstore = () => {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Box pt={10}>
-            {showSpinner ? <LoadingBooks /> : <Books books={books} />}
+            {showSpinner ? (
+              <LoadingBooks />
+            ) : (
+              <Books books={books} handleButton={handleOpen} />
+            )}
           </Box>
         </Grid>
       </Grid>

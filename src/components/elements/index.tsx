@@ -1,3 +1,4 @@
-import Book from "./Book";
+import Book from "./book";
+import bookDetail from "./bookDetail";
 
-export { Book };
+export { Book, bookDetail };

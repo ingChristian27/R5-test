@@ -1,7 +1,7 @@
-export const styles = {
+export const getStyles = (isActive: Boolean) => ({
   bookTitle: { textAlign: "center" },
-  cardContainer: { height: 400 },
+  cardContainer: { height: isActive ? 470 : 400 },
   cardMediaContainer: { p: 2 },
-};
-
-export default styles;
+  cardContend: { height: "115px" },
+});
+export default getStyles;
